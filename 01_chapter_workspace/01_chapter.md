@@ -4,8 +4,8 @@
   Author   : Sajjad Hanifa
   Company  : S&H Software Solutions
   Website  : https://shsoftwaresolution.com
-  Version  : 1.0.0
-  Date     : 2026-05-14
+  Version  : 2.0.0
+  Date     : 2026-05-18
 -->
 
 # Chapter 01 – Create a Workspace
@@ -26,11 +26,11 @@ Open your browser and navigate to the following URL:
 
 https://apex.oracle.com/ords/r/apex/workspace-sign-in/oracle-apex-sign-in
 
-You will see the official Oracle APEX login page. There are three input fields: **Workspace**, **Username**, and **Password**. Below that is a checkbox „Remember Workspace and Username" and the green **„Sign In"** button.
+You will see the official Oracle APEX login page. There are three input fields: **Workspace**, **Username**, and **Password**. Below that is a checkbox **„Remember Workspace and Username"** and the blue **„Sign In"** button.
 
-At the very bottom of the page you will find two links: **„Reset Password"** and **„Request a Workspace"**. Since we don't have a workspace yet, click on **„Request a Workspace"**.
+On the right side under **Quick Actions** you will find the link **„Request a Workspace"**. Since we don't have a workspace yet, click on it.
 
-![APEX Login Page](./assets/01_apex_login_page.jpg)
+![APEX Login Page](./assets/01_apex_login_page.png)
 
 ---
 
@@ -49,7 +49,7 @@ Fill in the fields as follows:
 
 Then click **„Next"**.
 
-![Workspace Identification](./assets/02_workspace_identification.jpg)
+![Workspace Identification](./assets/02_workspace_identification.png)
 
 ---
 
@@ -62,7 +62,7 @@ In the second step Oracle asks two short questions. The answers help Oracle impr
 
 Click **„Next"**.
 
-![Workspace Survey](./assets/03_workspace_survey.jpg)
+![Workspace Survey](./assets/03_workspace_survey.png)
 
 ---
 
@@ -83,47 +83,75 @@ In the last step you see a summary of all entered data for review:
 - First Name: Sajjad
 - Last Name: Hanifa
 - Email: sajjad.hanifa@shsoftwaresolution.com
-- Workspace: Sajjadhanifa
+- Workspace: sajjadhanifa
 - Country: Germany
 - Usage: Personal
 
 Everything correct? Then click **„Submit Request"**.
 
-![Workspace Confirmation](./assets/05_workspace_confirmation.jpg)
+![Workspace Confirmation](./assets/05_workspace_confirmation.png)
 
 ---
 
-## Step 6 – Email Confirmation
+## Step 6 – Request Submitted
 
-Oracle will now send a confirmation email to the address you provided. This usually takes 1–2 minutes. Also check your spam folder if nothing arrives.
+After clicking „Submit Request" you will see a confirmation screen with a green checkmark and the message **„Workspace Requested!"**
 
-Open the email and click on the activation link. You will be redirected to a page where you can set your password. The password must meet the following requirements: at least 8 characters, upper and lowercase letters, at least one number and one special character.
+Oracle will now review your request and send an approval email to the address you provided. This usually takes just a few minutes — also check your spam folder if nothing arrives.
 
----
-
-## Step 7 – Sign In
-
-Go back to the login page and enter:
-
-- **Workspace** → `SAJJADHANIFA`
-- **Username** → `ADMIN`
-- **Password** → the password you just set
-
-Click **„Sign In"**.
-
-![APEX Login Page](./assets/01_apex_login_page.jpg)
+![Workspace Requested](./assets/06_workspace_requested.png)
 
 ---
 
-## Step 8 – App Builder Home
+## Step 7 – Approval Email
 
-After logging in you will land directly in the **App Builder**. At the top you can see the main navigation with **App Builder**, **SQL Workshop**, **Team Development**, and **Gallery**.
+Open your inbox and look for an email from Oracle APEX with the subject **„Action required: account request for ..."**. The email confirms that your workspace request has been approved.
 
-If you click on your name in the top right corner, a profile popup opens. There you can see your full name, your email, your workspace name, and your role — in our case **Administrator**.
+Click the blue **„Create Workspace"** button inside the email.
 
-Inside the App Builder itself there are four main actions: **Create** (create a new app), **Import** (import an app), **Dashboard** (statistics), and **Workspace Utilities** (workspace settings). Below that, all your apps will appear later.
+![Workspace Email Approved](./assets/07_workspace_email_approved.png)
 
-![App Builder Dashboard](./assets/06_app_builder_dashboard.jpg)
+---
+
+## Step 8 – Creating Workspace
+
+After clicking the button in the email, your browser opens and Oracle starts creating your workspace automatically. You will see the message **„Creating Workspace..."** with a loading spinner.
+
+This only takes a few seconds — just wait for it to finish.
+
+![Creating Workspace](./assets/08_workspace_creating.png)
+
+---
+
+## Step 9 – Workspace Successfully Created
+
+Once the process is complete, you will see the message **„Workspace Successfully Created"** with a green checkmark.
+
+Click **„Continue to Sign In Screen"** to proceed.
+
+![Workspace Created](./assets/09_workspace_created.png)
+
+---
+
+## Step 10 – Set Your Password
+
+You will now be redirected to the **Change Password** page. Oracle requires you to set a new password before your first login.
+
+Enter your new password in both fields and click **„Change Password"**.
+
+> 💡 Your password must be at least 8 characters long and contain uppercase letters, lowercase letters, at least one number, and one special character.
+
+![Change Password](./assets/10_workspace_change_password.png)
+
+---
+
+## Step 11 – App Builder Home
+
+After logging in you will land directly in the **App Builder**. This is your main working area throughout the entire workshop.
+
+At the top you can see four main actions: **Create** (create a new app), **Import** (import an app), **Dashboard** (usage statistics), and **Workspace Utilities** (workspace settings). Below that, all your apps will appear as you build them.
+
+![App Builder Dashboard](./assets/11_app_builder_dashboard.png)
 
 ---
 
@@ -135,4 +163,4 @@ Inside the App Builder itself there are four main actions: **Create** (create a 
 
 ---
 
-[← Back to Overview](../README.md) | [→ Chapter 02](../chapter-02-sql-import/chapter-02.md)
+[← Back to Overview](../README.md) | [→ Chapter 02](../02_chapter_sql_import/02_chapter.md)
