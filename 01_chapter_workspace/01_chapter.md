@@ -163,4 +163,4 @@ At the top you can see four main actions: **Create** (create a new app), **Impor
 
 ---
 
-[← Back to Overview](../README.md) | [→ Chapter 02](../02_chapter_sql_import/02_chapter.md)
+[↑ Back to Overview](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/README.md) | [→ Chapter 02](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md)

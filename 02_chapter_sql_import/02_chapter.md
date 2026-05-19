@@ -223,4 +223,4 @@ Your database is now ready — let's start building the app in the next chapter!
 
 ---
 
-[← Back to Overview](../README.md) | [→ Chapter 03](../03_chapter_create_app/03_chapter.md)
+[← Chapter 01](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/01_chapter_workspace/01_chapter.md) | [↑ Back to Overview](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/README.md) | [→ Chapter 03](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/03_chapter_create_app/03_chapter.md)

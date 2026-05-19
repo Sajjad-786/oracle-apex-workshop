@@ -3,8 +3,8 @@
   Author   : Sajjad Hanifa
   Company  : S&H Software Solutions
   Website  : https://shsoftwaresolution.com
-  Version  : 1.0.0
-  Date     : 2026-05-14
+  Version  : 1.1.0
+  Date     : 2026-05-19
 -->
 
 # 👋 Welcome to the Oracle APEX Workshop!
@@ -39,7 +39,7 @@ Every chapter includes **real screenshots** of every single step — exactly wha
 | # | Chapter | Status |
 |---|---------|--------|
 | 01 | [🏗️ Create a Workspace](./01_chapter_workspace/01_chapter.md) | ✅ Available |
-| 02 | 🗄️ SQL Import | 🔜 Coming soon |
+| 02 | [🗄️ SQL Import](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | ✅ Available |
 | 03 | 📱 Create an App | 🔜 Coming soon |
 | 04 | 👁️ Create a View | 🔜 Coming soon |
 | 05 | 📝 Form (Low-Code) | 🔜 Coming soon |
