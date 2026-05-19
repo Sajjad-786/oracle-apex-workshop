@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>DB Model – Oracle APEX Workshop</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #f0f2f5;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      padding: 30px 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 6px;
+    }
+
+    .hint {
+      text-align: center;
+      font-size: 11px;
+      color: #aaa;
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    /* ── SCROLLABLE WRAPPER ── */
+    .wrapper {
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      background: #f8f9fb;
+      height: 1400px;
+    }
+
+    /* ── CANVAS ── */
+    .canvas {
+      position: relative;
+      height: 1400px;
+    }
+
+    svg.lines {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    /* ── TABLE CARD ── */
+    .tbl {
+      position: absolute;
+      width: 248px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      overflow: hidden;
+      font-size: 11px;
+      font-family: 'Consolas', 'Courier New', monospace;
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow 0.15s;
+    }
+    .tbl.dragging {
+      cursor: grabbing;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+      z-index: 1000;
+    }
+
+    .tbl-head {
+      padding: 10px 13px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .tbl-sec {
+      padding: 5px 13px 2px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #bbb;
+      font-family: 'Segoe UI', sans-serif;
+      border-top: 1px solid #f3f3f3;
+      margin-top: 2px;
+    }
+
+    .tbl-row {
+      padding: 3px 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #333;
+    }
+    .tbl-row:last-child { padding-bottom: 8px; }
+
+    .badge {
+      font-size: 8px;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+      min-width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .pk  { background: #fff3cd; color: #856404; }
+    .fk  { background: #cfe2ff; color: #084298; }
+    .sp  { display: inline-block; min-width: 20px; flex-shrink: 0; }
+
+    /* ── TABLE COLORS ── */
+    .c-comp .tbl-head { background: #e67e22; }
+    .c-user .tbl-head { background: #2980b9; }
+    .c-cust .tbl-head { background: #27ae60; }
+    .c-item .tbl-head { background: #d4a017; }
+    .c-orde .tbl-head { background: #8e44ad; }
+    .c-orit .tbl-head { background: #e74c3c; }
+
+    /* ── LEGEND ── */
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 14px;
+      font-size: 12px;
+      color: #666;
+      font-family: 'Segoe UI', sans-serif;
+      flex-wrap: wrap;
+    }
+    .leg { display: flex; align-items: center; gap: 7px; }
+    .leg-dash { width: 28px; border-top: 2px dashed #aaa; }
+
+    footer {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #ccc;
+      font-family: 'Segoe UI', sans-serif;
+      padding-bottom: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Database Model – Oracle APEX Workshop</h1>
+<div class="subtitle">S&amp;H Software Solutions &nbsp;·&nbsp; 6 Tables &nbsp;·&nbsp; Version 1.0</div>
+<div class="hint">💡 Drag any table card to rearrange the layout &nbsp;·&nbsp; Positions are saved automatically in your browser</div>
+
+<div class="wrapper">
+  <div class="canvas" id="canvas">
+
+    <!-- SVG CONNECTION LINES -->
+    <svg class="lines" id="svgLines" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto">
+          <path d="M0,0 L0,6 L7,3 z" fill="#bbb"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <!-- ══════════════ COMPANIES ══════════════ -->
+    <div class="tbl c-comp" id="tbl-companies" data-id="companies">
+      <div class="tbl-head">🏢 COMPANIES</div>
+      <div class="tbl-sec">Primary Key</div>
+      <div class="tbl-row"><span class="badge pk">PK</span> COMP_ID</div>
+      <div class="tbl-sec">Master Data</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_SHORT_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_EMAIL</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_PHONE</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_STREET</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_STREET_NR</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_POSTCODE</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_CITY</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_COUNTRY</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_ACTIVE_YN</div>
+      <div class="tbl-sec">Audit</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_CREATED</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_CREATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_UPDATED</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_UPDATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_VALID_FROM</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_VALID_TO</div>
+      <div class="tbl-row"><span class="sp"></span> COMP_DELETED_YN</div>
+    </div>
+
+    <!-- ══════════════ USERS ══════════════ -->
+    <div class="tbl c-user" id="tbl-users" data-id="users">
+      <div class="tbl-head">👤 USERS</div>
+      <div class="tbl-sec">Primary Key</div>
+      <div class="tbl-row"><span class="badge pk">PK</span> USER_ID</div>
+      <div class="tbl-sec">Foreign Key</div>
+      <div class="tbl-row"><span class="badge fk">FK</span> USER_COMP_FK</div>
+      <div class="tbl-sec">Master Data</div>
+      <div class="tbl-row"><span class="sp"></span> USER_FIRST_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> USER_LAST_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> USER_LOGIN_EMAIL</div>
+      <div class="tbl-row"><span class="sp"></span> USER_LOGIN_PASSWORD</div>
+      <div class="tbl-row"><span class="sp"></span> USER_ACTIVE_YN</div>
+      <div class="tbl-sec">Audit</div>
+      <div class="tbl-row"><span class="sp"></span> USER_CREATED</div>
+      <div class="tbl-row"><span class="sp"></span> USER_CREATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> USER_UPDATED</div>
+      <div class="tbl-row"><span class="sp"></span> USER_UPDATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> USER_VALID_FROM</div>
+      <div class="tbl-row"><span class="sp"></span> USER_VALID_TO</div>
+      <div class="tbl-row"><span class="sp"></span> USER_DELETED_YN</div>
+    </div>
+
+    <!-- ══════════════ CUSTOMERS ══════════════ -->
+    <div class="tbl c-cust" id="tbl-customers" data-id="customers">
+      <div class="tbl-head">🙋 CUSTOMERS</div>
+      <div class="tbl-sec">Primary Key</div>
+      <div class="tbl-row"><span class="badge pk">PK</span> CUST_ID</div>
+      <div class="tbl-sec">Foreign Key</div>
+      <div class="tbl-row"><span class="badge fk">FK</span> CUST_COMP_FK</div>
+      <div class="tbl-sec">Master Data</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_FIRST_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_LAST_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_EMAIL</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_PHONE</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_STREET</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_STREET_NR</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_POSTCODE</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_CITY</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_COUNTRY</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_ACTIVE_YN</div>
+      <div class="tbl-sec">Audit</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_CREATED</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_CREATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_UPDATED</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_UPDATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_VALID_FROM</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_VALID_TO</div>
+      <div class="tbl-row"><span class="sp"></span> CUST_DELETED_YN</div>
+    </div>
+
+    <!-- ══════════════ ITEMS ══════════════ -->
+    <div class="tbl c-item" id="tbl-items" data-id="items">
+      <div class="tbl-head">📦 ITEMS</div>
+      <div class="tbl-sec">Primary Key</div>
+      <div class="tbl-row"><span class="badge pk">PK</span> ITEM_ID</div>
+      <div class="tbl-sec">Foreign Key</div>
+      <div class="tbl-row"><span class="badge fk">FK</span> ITEM_COMP_FK</div>
+      <div class="tbl-sec">Master Data</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_NAME</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_DESCRIPTION</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_PRICE</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_STOCK_QTY</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_ACTIVE_YN</div>
+      <div class="tbl-sec">Audit</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_CREATED</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_CREATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_UPDATED</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_UPDATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_VALID_FROM</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_VALID_TO</div>
+      <div class="tbl-row"><span class="sp"></span> ITEM_DELETED_YN</div>
+    </div>
+
+    <!-- ══════════════ ORDERS ══════════════ -->
+    <div class="tbl c-orde" id="tbl-orders" data-id="orders">
+      <div class="tbl-head">🛒 ORDERS</div>
+      <div class="tbl-sec">Primary Key</div>
+      <div class="tbl-row"><span class="badge pk">PK</span> ORDE_ID</div>
+      <div class="tbl-sec">Foreign Key</div>
+      <div class="tbl-row"><span class="badge fk">FK</span> ORDE_CUST_FK</div>
+      <div class="tbl-sec">Master Data</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_DATE</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_STATUS</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_ACTIVE_YN</div>
+      <div class="tbl-sec">Audit</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_CREATED</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_CREATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_UPDATED</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_UPDATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_VALID_FROM</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_VALID_TO</div>
+      <div class="tbl-row"><span class="sp"></span> ORDE_DELETED_YN</div>
+    </div>
+
+    <!-- ══════════════ ORDER_ITEMS ══════════════ -->
+    <div class="tbl c-orit" id="tbl-orderitems" data-id="orderitems">
+      <div class="tbl-head">📋 ORDER_ITEMS</div>
+      <div class="tbl-sec">Primary Key</div>
+      <div class="tbl-row"><span class="badge pk">PK</span> ORIT_ID</div>
+      <div class="tbl-sec">Foreign Keys</div>
+      <div class="tbl-row"><span class="badge fk">FK</span> ORIT_ORDE_FK</div>
+      <div class="tbl-row"><span class="badge fk">FK</span> ORIT_ITEM_FK</div>
+      <div class="tbl-sec">Data</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_QUANTITY</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_UNIT_PRICE</div>
+      <div class="tbl-sec">Audit</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_CREATED</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_CREATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_UPDATED</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_UPDATED_BY</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_VALID_FROM</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_VALID_TO</div>
+      <div class="tbl-row"><span class="sp"></span> ORIT_DELETED_YN</div>
+    </div>
+
+  </div><!-- /canvas -->
+</div><!-- /wrapper -->
+
+<div class="legend">
+  <div class="leg"><span class="badge pk" style="font-size:10px;padding:2px 6px;">PK</span> Primary Key</div>
+  <div class="leg"><span class="badge fk" style="font-size:10px;padding:2px 6px;">FK</span> Foreign Key</div>
+  <div class="leg"><div class="leg-dash"></div> 1 : N Relationship</div>
+  <div class="leg" style="color:#bbb;font-size:11px;">Drag cards to rearrange &nbsp;·&nbsp; Layout is saved in browser</div>
+</div>
+
+<footer style="margin-top:10px">Oracle APEX Workshop &nbsp;·&nbsp; S&amp;H Software Solutions &nbsp;·&nbsp; Sajjad Hanifa</footer>
+
+<script>
+  // ── DEFAULT POSITIONS (generous spacing, no overlaps) ──
+  // Table heights (approx): COMPANIES ~570px, CUSTOMERS ~570px, USERS ~460px,
+  // ITEMS ~460px, ORDERS ~400px, ORDER_ITEMS ~400px
+  const DEFAULTS = {
+    companies:  { left: 626,  top: 20   },
+    users:      { left: 20,   top: 660  },
+    customers:  { left: 1232, top: 660  },
+    items:      { left: 20,   top: 1190 },
+    orders:     { left: 626,  top: 700  },
+    orderitems: { left: 626,  top: 1170 }
+  };
+
+  // ── CONNECTIONS ──
+  const CONNECTIONS = [
+    { from: 'companies', to: 'users',      label: '1 : N' },
+    { from: 'companies', to: 'customers',  label: '1 : N' },
+    { from: 'companies', to: 'items',      label: '1 : N' },
+    { from: 'customers', to: 'orders',     label: '1 : N' },
+    { from: 'orders',    to: 'orderitems', label: '1 : N' },
+    { from: 'items',     to: 'orderitems', label: '1 : N' },
+  ];
+
+  // ── LOAD / SAVE POSITIONS ──
+  function loadPositions() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('dbmodel-v2-positions') || '{}');
+      return Object.assign({}, DEFAULTS, saved);
+    } catch(e) { return Object.assign({}, DEFAULTS); }
+  }
+  function savePositions(pos) {
+    try { localStorage.setItem('dbmodel-v2-positions', JSON.stringify(pos)); } catch(e) {}
+  }
+
+  const positions = loadPositions();
+
+  // ── APPLY INITIAL POSITIONS ──
+  document.querySelectorAll('.tbl').forEach(el => {
+    const id = el.dataset.id;
+    const p = positions[id];
+    if (p) { el.style.left = p.left + 'px'; el.style.top = p.top + 'px'; }
+  });
+
+  // ── GET BOUNDING BOX (relative to canvas) ──
+  function getBox(id) {
+    const el = document.getElementById('tbl-' + id);
+    const l = parseFloat(el.style.left) || 0;
+    const t = parseFloat(el.style.top)  || 0;
+    const w = el.offsetWidth;
+    const h = el.offsetHeight;
+    return { l, t, r: l + w, b: t + h, cx: l + w / 2, cy: t + h / 2 };
+  }
+
+  // ── BEST EDGE PORTS BETWEEN TWO BOXES ──
+  function bestPorts(a, b) {
+    const dx = b.cx - a.cx;
+    const dy = b.cy - a.cy;
+    if (Math.abs(dx) >= Math.abs(dy)) {
+      return dx > 0
+        ? { x1: a.r, y1: a.cy, x2: b.l, y2: b.cy }
+        : { x1: a.l, y1: a.cy, x2: b.r, y2: b.cy };
+    } else {
+      return dy > 0
+        ? { x1: a.cx, y1: a.b, x2: b.cx, y2: b.t }
+        : { x1: a.cx, y1: a.t, x2: b.cx, y2: b.b };
+    }
+  }
+
+  // ── DRAW ALL LINES ──
+  function drawLines() {
+    const svg = document.getElementById('svgLines');
+    // Remove old lines/labels (keep <defs>)
+    const children = Array.from(svg.children);
+    children.forEach(c => { if (c.tagName !== 'defs') svg.removeChild(c); });
+
+    CONNECTIONS.forEach(conn => {
+      const a = getBox(conn.from);
+      const b = getBox(conn.to);
+      const { x1, y1, x2, y2 } = bestPorts(a, b);
+      const dx = x2 - x1;
+      const dy = y2 - y1;
+
+      // Cubic bezier path
+      let d;
+      if (Math.abs(dx) >= Math.abs(dy)) {
+        const cx1 = x1 + dx * 0.5;
+        const cx2 = x2 - dx * 0.5;
+        d = `M ${x1} ${y1} C ${cx1} ${y1}, ${cx2} ${y2}, ${x2} ${y2}`;
+      } else {
+        const cy1 = y1 + dy * 0.5;
+        const cy2 = y2 - dy * 0.5;
+        d = `M ${x1} ${y1} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${y2}`;
+      }
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      path.setAttribute('stroke', '#bbb');
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('stroke-dasharray', '5,3');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('marker-end', 'url(#arr)');
+      svg.appendChild(path);
+
+      // Label at midpoint
+      const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      text.setAttribute('x', (x1 + x2) / 2);
+      text.setAttribute('y', (y1 + y2) / 2 - 6);
+      text.setAttribute('font-size', '10');
+      text.setAttribute('fill', '#bbb');
+      text.setAttribute('font-family', 'Arial');
+      text.setAttribute('text-anchor', 'middle');
+      text.textContent = conn.label;
+      svg.appendChild(text);
+    });
+  }
+
+  // ── DRAG AND DROP ──
+  let drag = null;
+  let offX = 0, offY = 0;
+
+  document.querySelectorAll('.tbl').forEach(el => {
+    el.addEventListener('mousedown', e => {
+      if (e.button !== 0) return;
+      drag = el;
+      el.classList.add('dragging');
+      const rect = el.getBoundingClientRect();
+      offX = e.clientX - rect.left;
+      offY = e.clientY - rect.top;
+      e.preventDefault();
+    });
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const canvas = document.getElementById('canvas');
+    const wrapper = document.querySelector('.wrapper');
+    const cRect = canvas.getBoundingClientRect();
+
+    let newLeft = e.clientX - cRect.left - offX + wrapper.scrollLeft;
+    let newTop  = e.clientY - cRect.top  - offY + wrapper.scrollTop;
+
+    // Clamp within canvas
+    newLeft = Math.max(10, Math.min(newLeft, 1500 - drag.offsetWidth - 10));
+    newTop  = Math.max(10, Math.min(newTop,  1800 - drag.offsetHeight - 10));
+
+    drag.style.left = newLeft + 'px';
+    drag.style.top  = newTop  + 'px';
+
+    positions[drag.dataset.id] = { left: newLeft, top: newTop };
+    drawLines();
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (drag) {
+      drag.classList.remove('dragging');
+      savePositions(positions);
+      drag = null;
+    }
+  });
+
+  // ── RESET BUTTON ──
+  const btn = document.createElement('button');
+  btn.textContent = '⟳  Reset Layout';
+  btn.style.cssText = `
+    position: fixed; bottom: 20px; right: 24px;
+    background: #fff; border: 1px solid #ddd; border-radius: 8px;
+    padding: 7px 16px; font-size: 12px; cursor: pointer; color: #666;
+    font-family: 'Segoe UI', sans-serif; box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+    transition: background 0.15s;
+  `;
+  btn.onmouseenter = () => btn.style.background = '#f5f5f5';
+  btn.onmouseleave = () => btn.style.background = '#fff';
+  btn.addEventListener('click', () => {
+    Object.assign(positions, DEFAULTS);
+    document.querySelectorAll('.tbl').forEach(el => {
+      const id = el.dataset.id;
+      el.style.left = DEFAULTS[id].left + 'px';
+      el.style.top  = DEFAULTS[id].top  + 'px';
+    });
+    savePositions(positions);
+    drawLines();
+  });
+  document.body.appendChild(btn);
+
+  // ── INIT LINES ──
+  requestAnimationFrame(() => requestAnimationFrame(drawLines));
+</script>
+
+</body>
+</html>
