@@ -4,166 +4,245 @@
   Author   : Sajjad Hanifa
   Company  : S&H Software Solutions
   Website  : https://shsoftwaresolution.com
-  Version  : 1.0.0
-  Date     : 2026-05-21
+  Version  : 3.0.0
+  Date     : 2026-05-25
 -->
 
 # Chapter 03 – Create an App
 
-> ⏱ Estimated Time: ~20 Minutes
+> ⏱ Estimated Time: ~25 Minutes
 
 ---
 
 ## What you will learn
 
-In this chapter you will create your very first Oracle APEX application from scratch. By the end of this chapter you will have a working app called **MyOrderSystem** with a Home page and a Login page — including a custom background image on the login screen.
+In this chapter you will create your first Oracle APEX application from scratch. By the end you will have a working app called **MyOrderSystem** with a Home page and a Login page — including a custom background image, a global CSS file, and a custom login design class.
 
 ---
 
 ## Step 1 – Open the App Builder
 
-Log in to your workspace and open the **App Builder**. You will see the familiar home screen with four action tiles at the top: **Create**, **Import**, **Dashboard**, and **Workspace Utilities**.
+Log in to your workspace and open the **App Builder**. You will see the home screen with four action tiles at the top: **Create**, **Import**, **Dashboard**, and **Workspace Utilities**.
 
-In the center of the page you will find two quick-start options. Click on **„Create a New App"**.
+In the center click **„Create a New App"**.
 
-![App Builder Home](./assets/1.png)
+![App Builder Home](./assets/01_app_builder_home.png)
 
 ---
 
 ## Step 2 – Name Your Application
 
-Oracle APEX now shows you the **Create an Application** screen. You will see a **Name** field and an auto-generated **ID** field.
+Oracle APEX shows you the **Create an Application** screen with a **Name** field and an auto-generated **ID**.
 
 Enter the following value:
 
 - **Name** → `MyOrderSystem`
 
-The **ID** (e.g. `294459`) is assigned automatically — you do not need to change it.
+The **ID** is assigned automatically — leave it as is. Click the blue **„Create Application"** button.
 
-Click the blue **„Create Application"** button.
+> 💡 The application ID is unique within your workspace. It is referenced as `APP_ID` throughout APEX and appears in all URLs.
 
-> 💡 The application ID is unique across your workspace. It appears in all URLs and is referenced as `APP_ID` or `:APP_ID` inside APEX.
-
-![Create Application](./assets/2.png)
+![Create Application](./assets/02_create_application.png)
 
 ---
 
 ## Step 3 – App Overview
 
-After clicking **„Create Application"**, APEX creates the app and takes you straight to the **Application home page**.
+After clicking **„Create Application"**, APEX creates the app and brings you to the **Application home**. Three pages are created automatically:
 
-You will see a list of pages that were automatically created:
-
-| Page # | Alias | Type |
-|--------|-------|------|
+| Page # | Name | Type |
+|--------|------|------|
 | 0 | Global Page | Global Page |
 | 1 | Home | Normal |
 | 9999 | Login Page | Login |
 
-Every new APEX application always includes these three default pages. The **Login Page (9999)** is what users see before they are authenticated — that is exactly the page we will customize next.
+The **Login Page (9999)** is what users see before they authenticate — we will customize it in the next steps.
 
-![App Overview – Pages](./assets/3.png)
+![App Pages Overview](./assets/03_app_pages_overview.png)
 
 ---
 
-## Step 4 – Explore Shared Components (optional)
+## Step 4 – Open Shared Components
 
-Click on **„Shared Components"** in the top area of the App home. This section lists everything that is shared across all pages of your application — things like authentication schemes, navigation menus, templates, and static files.
+Click on **„Shared Components"** in the top area of the App home. This section contains everything shared across all pages — authentication schemes, navigation menus, templates, and static files.
 
-Take a moment to explore the overview. We will come back to **Static Application Files** in the next step.
+Take a look at the **„Files and Reports"** section on the right side. You will notice a small gray number next to **„Static Application Files"** — it shows **5**. These are the default icon files APEX creates automatically for every new application. Remember this number — at the end of this chapter it will be higher.
 
-> 💡 Shared Components is one of the most powerful areas in APEX. Anything you put here is available on every single page of your app.
+> 💡 Everything placed in Shared Components is available on every single page of your application.
 
-![Shared Components](./assets/4.png)
+![Shared Components](./assets/04_shared_components.png)
 
 ---
 
 ## Step 5 – Open Static Application Files
 
-In the **Shared Components** overview, scroll down to the section **„Files and Reports"** and click on **„Static Application Files"**.
+In **Shared Components**, scroll to the section **„Files and Reports"** and click **„Static Application Files"**.
 
-You will see a list of files already belonging to your app. These are typically icon files that APEX adds by default (e.g. app icon in different sizes).
+You will see exactly those **5 default icon files** that APEX added automatically (app icons in different sizes). We will now add our own files on top of these.
 
-To upload your own background image, click the blue **„Create File"** button in the top right corner.
+Click the blue **„Create File"** button in the top right corner.
 
-![Static Application Files](./assets/screencapture-oracleapex-ords-r-apex-app-builder-static-application-files-2026-05-21-00_36_54.png)
+![Static Application Files](./assets/05_static_files_list.png)
 
 ---
 
 ## Step 6 – Upload the Background Image
 
-The **Create Application Static File** screen opens. You will see a drag-and-drop area labeled **„Drag and Drop Files"**.
+The **Create Application Static File** screen opens with a drag-and-drop area.
 
-Drag your background image file onto this area — or click it to open a file picker. For this workshop we use the file **`MyOrderSystem.webp`** which is provided in the `scripts/` folder of this chapter.
+Drag your background image onto this area — or click it to open the file picker. For this workshop use the file **`MyOrderSystem.webp`** from the `scripts/` folder of this chapter.
 
-![Upload Background Image – Drop Zone](./assets/screencapture-oracleapex-ords-r-apex-app-builder-file-editor-2026-05-21-00_37_09.png)
-
----
-
-## Step 7 – Confirm the Upload
-
-After dropping the file, you will see it appear in the upload area with its name and file size — in our case **MyOrderSystem.webp (181.32 KB)**.
-
-The **File Character Set** is automatically set to `Unicode UTF-8` — leave this as is.
-
-Click the blue **„Create"** button to upload the file.
-
-![Upload Background Image – File Selected](./assets/screencapture-oracleapex-ords-r-apex-app-builder-file-editor-2026-05-21-00_42_10.png)
+![Upload – Drop Zone](./assets/06_upload_image_dropzone.png)
 
 ---
 
-## Step 8 – File Upload Confirmed
+## Step 7 – Confirm the Image Selection
 
-After clicking **„Create"**, APEX confirms with a green **„File(s) created"** banner at the top of the screen.
+After dropping the file you will see it appear with its name and size — **MyOrderSystem.webp (181 KB)**.
 
-You can now see the uploaded file with its details:
+The **File Character Set** is set to `Unicode UTF-8` automatically.
 
-- **File Name** → `MyOrderSystem.webp`
-- **Reference** → `#APP_FILES#MyOrderSystem.webp`
-- **Mime Type** → `image/webp`
+> ⚠️ Do **not** click **„Create"** here. Instead click **„Create and Create Another"** — this uploads the image and immediately opens a fresh upload form so you can create the next file without navigating back.
 
-The **Reference** value is important — this is the token you will use inside APEX to point to this file. Copy it or keep this screen open for the next step.
-
-![Upload Confirmed – File Reference](./assets/screencapture-oracleapex-ords-r-apex-app-builder-file-editor-2026-05-21-00_42_45.png)
+![Upload – File Selected](./assets/07_upload_image_selected.png)
 
 ---
 
-## Step 9 – Open the Login Page in Page Designer
+## Step 8 – Create the Global CSS File
 
-Navigate back to the App home page. In the page list you will see the three default pages again.
+APEX confirms the image upload with a green **„File(s) created"** banner at the top — the background image is saved.
 
-Click on **„Login Page"** (Page 9999) to open it in the **Page Designer**.
+The form is already open and ready for the next file. Enter the following in the **File Name** field:
 
-![App Home – Open Login Page](./assets/screencapture-oracleapex-ords-r-apex-app-builder-home-2026-05-21-00_50_34.png)
+```
+global_css.css
+```
+
+Leave the **Content** area empty for now and click **„Create"** to save the CSS file.
+
+> 💡 Using **„Create and Create Another"** in the previous step saved you from navigating back through the menus — APEX brought you straight here.
+
+![Create CSS File](./assets/08_create_css_file.png)
 
 ---
 
-## Step 10 – Set the Background Image
+## Step 9 – Write Your CSS
 
-The **Page Designer** opens for Page 9999. In the left panel (the page tree) you will see the page structure. Click on **„Background Image"** to select that component.
+The file editor for **global_css.css** opens. Here you can write CSS that will apply across your entire application.
 
-On the right side the **Property Editor** updates. Under the **Image** section you will find the **File URL** field.
+Enter your custom login styles here. For example, use the class `.my_custom_login_design` to style the login region. Click **„Save Changes"** when done.
 
-Enter the reference value from Step 8:
+- **File Name** → `global_css.css`
+- **Reference** → `#APP_FILES#global_css#MIN#.css`
+- **Mime Type** → `text/css`
+
+> 💡 The `#MIN#` token tells APEX to automatically minify your CSS in production — smaller file, faster load.
+
+![CSS File Editor](./assets/09_css_file_editor.png)
+
+---
+
+## Step 10 – Both Files Are Now Listed
+
+Navigate back to **Static Application Files**. You will now see **7 files** in total — the 5 default icon files plus the 2 you just uploaded:
+
+- `MyOrderSystem.webp` — the background image
+- `global_css.css` — your custom stylesheet
+
+![Static Files – Both Uploaded](./assets/10_static_files_both.png)
+
+---
+
+## Step 11 – Go Back to Shared Components
+
+Navigate back to **Shared Components**. Before opening the Page Designer, we first need to link the `global_css.css` file so it loads on every page of the application.
+
+Look at the **„Files and Reports"** section again — the gray number next to **„Static Application Files"** now shows **8** instead of 5. That confirms both your files were uploaded successfully.
+
+In the **User Interface** section click **„User Interface Attributes"**.
+
+![Shared Components – Back](./assets/11_shared_components_back.png)
+
+---
+
+## Step 12 – Link the CSS File to the Application
+
+In **User Interface Attributes**, click the **„CSS"** tab in the sub-navigation.
+
+In the **File URLs** field enter the reference from Step 9:
+
+```
+#APP_FILES#global_css#MIN#.css
+```
+
+Click **„Apply Changes"** to save. Your CSS now loads on every page automatically.
+
+![User Interface – CSS Tab](./assets/12_user_interface_css.png)
+
+---
+
+## Step 13 – Open the Login Page
+
+Navigate back to the **App home**. In the page list click on **„Login Page"** (Page 9999) to open it in the **Page Designer**.
+
+![App Home – Open Login Page](./assets/13_app_home_open_login.png)
+
+---
+
+## Step 14 – Set the Background Image
+
+In the **Page Designer** (Page 9999), click on **„Background Image"** in the left panel.
+
+In the **Property Editor** on the right, find the **File URL** field under **Image** and enter:
 
 ```
 #APP_FILES#MyOrderSystem.webp
 ```
 
-Click **„Save"** (top right) to save your changes.
+Click **„Save"** to apply.
 
-> 💡 The `#APP_FILES#` token is automatically resolved by APEX at runtime to the correct URL of your uploaded static file. Never hardcode the actual URL — always use this token.
+> 💡 Always use the `#APP_FILES#` token — never hardcode the actual file URL.
 
-![Page Designer – Background Image](./assets/screencapture-oracleapex-ords-r-apex-app-builder-page-designer-2026-05-21-00_51_09.png)
+![Page Designer – Background Image](./assets/14_page_designer_background.png)
+
+---
+
+## Step 15 – Apply the CSS Class to the Login Region
+
+Go back to **Page Designer** for Page 9999. This time click on the **Login region** (the main content region named **MyOrderSystem**) in the page tree.
+
+In the **Property Editor** on the right, find the **CSS Classes** field under **Appearance** and enter:
+
+```
+my_custom_login_design
+```
+
+Click **„Save"**. Your login region now uses the styles from `global_css.css`.
+
+> 💡 The CSS class name must exactly match the class selector in your CSS file (e.g. `.my_custom_login_design`).
+
+![Page Designer – CSS Class](./assets/15_page_designer_css_class.png)
 
 ---
 
 ## Summary
 
-- Every new APEX application is created with three default pages: **Global Page (0)**, **Home (1)**, and **Login Page (9999)**
-- **Static Application Files** let you upload images and other assets that can be referenced anywhere in your app using the `#APP_FILES#` token
-- The **Login Page (9999)** can be customized directly in the Page Designer — in this chapter we added a custom background image
+- Every new APEX application comes with three default pages: **Global Page (0)**, **Home (1)**, and **Login Page (9999)**
+- **Static Application Files** store images and CSS — referenced via `#APP_FILES#` tokens
+- The **Login Page background image** is set in Page Designer on the Background Image component
+- A **global CSS file** is created as a static file and linked via **Shared Components → User Interface Attributes → CSS**
+- A **CSS class** is applied to the Login region via the **CSS Classes** field in Page Designer
 - In the next chapter we will create a **database view** to prepare our data for display
+
+---
+
+## 🎉 Congratulations!
+
+You did it! Take a look at your finished login page — your custom background image fills the screen, the login form sits on top with your custom design class applied, and the whole thing is live in Oracle APEX.
+
+![Final Result – Login Page Live](./assets/16_final_result.png)
+
+This is a real application running in the cloud. From a blank workspace to a fully styled, working login screen — great job making it this far! Every chapter from here builds on what you just created, so you are in exactly the right place to keep going.
 
 ---
 
