@@ -246,4 +246,4 @@ This is a real application running in the cloud. From a blank workspace to a ful
 
 ---
 
-[← Chapter 02](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | [↑ Back to Overview](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/README.md) |
+[← Chapter 02](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | [↑ Back to Overview](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/README.md) | [→ Chapter 04](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/04_chapter_create_view/04_chapter.md)
