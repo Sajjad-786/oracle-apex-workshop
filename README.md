@@ -40,7 +40,7 @@ Every chapter includes **real screenshots** of every single step — exactly wha
 |---|---------|--------|
 | 01 | [🏗️ Create a Workspace](./01_chapter_workspace/01_chapter.md) | ✅ Available |
 | 02 | [🗄️ SQL Import](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | ✅ Available |
-| 03 | 📱 Create an App | 🔜 Coming soon |
+| 03 | [📱 Create an App](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/03_chapter_create_app/03_chapter.md) | ✅ Available |
 | 04 | 👁️ Create a View | 🔜 Coming soon |
 | 05 | 📝 Form (Low-Code) | 🔜 Coming soon |
 | 06 | 📊 Create a Report | 🔜 Coming soon |
@@ -86,6 +86,4 @@ If this helped you, consider giving it a ⭐ — it means a lot and helps others
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License — feel free to use, share, and build on it.
+## 📄 Licen
