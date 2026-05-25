@@ -72,7 +72,7 @@ You will now see the **Oracle APEX Service Agreement** — the terms of use. Scr
 
 Click **„Next"**.
 
-![Workspace Agreement](./assets/04_workspace_agreement.jpg)
+![Workspace Agreement](./assets/04_workspace_agreement.png)
 
 ---
 
