@@ -41,7 +41,7 @@ Every chapter includes **real screenshots** of every single step — exactly wha
 | 01 | [🏗️ Create a Workspace](./01_chapter_workspace/01_chapter.md) | ✅ Available |
 | 02 | [🗄️ SQL Import](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | ✅ Available |
 | 03 | [📱 Create an App](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/03_chapter_create_app/03_chapter.md) | ✅ Available |
-| 04 | 👁️ Create a View | 🔜 Coming soon |
+| 04 | [🔐 Authentication](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/04_chapter_create_view/04_chapter.md) | ✅ Available |
 | 05 | 📝 Form (Low-Code) | 🔜 Coming soon |
 | 06 | 📊 Create a Report | 🔜 Coming soon |
 | 07 | 🔧 Form with Package / API | 🔜 Coming soon |
@@ -73,7 +73,7 @@ Every chapter includes **real screenshots** of every single step — exactly wha
 | 🌐 Browser | Chrome or Firefox recommended |
 | 🔗 APEX URL | [apex.oracle.com](https://apex.oracle.com) (free) |
 | 💡 Experience | Beginners welcome — no PL/SQL needed |
-| ⏱️ Time | ~20 minutes per chapter |
+| ⏱️ Time | ~20–45 minutes per chapter |
 
 ---
 
