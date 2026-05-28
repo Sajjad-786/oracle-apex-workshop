@@ -130,11 +130,44 @@ Leave the **Content** area empty for now and click **„Create"** to save the CS
 
 The file editor for **global_css.css** opens. Here you can write CSS that will apply across your entire application.
 
-Enter your custom login styles here. For example, use the class `.my_custom_login_design` to style the login region. Click **„Save Changes"** when done.
+Copy the code below and paste it into the editor. Click **„Save Changes"** when done.
 
 - **File Name** → `global_css.css`
 - **Reference** → `#APP_FILES#global_css#MIN#.css`
 - **Mime Type** → `text/css`
+
+```css
+/*
+================================================================================
+  Workshop : Oracle APEX Workshop
+  Chapter  : 03 – Create an App
+  Style    : Login Region Design
+  Author   : Sajjad Hanifa
+  Company  : S&H Software Solutions
+  Website  : https://shsoftwaresolution.com
+  Version  : 1.0.0
+  Date     : 2026-05-27
+================================================================================
+*/
+
+/* === Login Region – Container Style =============================== */
+/* Glass-style background with custom border and rounded corners     */
+.my_custom_login_design {
+  background                  : rgba(52, 109, 144, 0.10);
+  color                       : #133c5d;
+  border                      : 5px solid;
+  box-shadow                  : inset 2px 2px 5px rgba(0, 0, 0, 0.3);
+  border-top-left-radius      : 100px;
+  border-bottom-right-radius  : 100px;
+}
+
+/* === Login Region – Input Fields & Buttons ======================== */
+/* Rounded corners applied only to items inside the login region     */
+.my_custom_login_design .apex-item-text,
+.my_custom_login_design .t-Button {
+  border-radius : 20px;
+}
+```
 
 > 💡 The `#MIN#` token tells APEX to automatically minify your CSS in production — smaller file, faster load.
 
@@ -246,4 +279,4 @@ This is a real application running in the cloud. From a blank workspace to a ful
 
 ---
 
-[← Chapter 02](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | [↑ Back to Overview](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/README.md) | [→ Chapter 04](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/04_chapter_create_view/04_chapter.md)
+[← Chapter 02](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/02_chapter_sql_import/02_chapter.md) | [↑ Back to Overview](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/README.md) | [→ Chapter 04](https://github.com/Sajjad-786/oracle-apex-workshop/blob/main/04_chapter_authentication/04_chapter.md)
